@@ -162,9 +162,9 @@ if len(args) == 4:
             ans = raw_input("Save this meme? [Y/N] ")
         if ans == 'y':
             filename = raw_input("Filename: ")
-            filename = 'out_pics/' + filename
+            filename = 'out_pics/' + filename + '.png'
             out.save(filename, "PNG")
-            print("Saved %s.png" % (filename))
+            print("Saved %s" % (filename))
     elif args[1] == "update":
         update_memes(args[2], args[3])
     else:
