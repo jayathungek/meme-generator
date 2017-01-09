@@ -2,6 +2,7 @@ from __future__ import print_function
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from io import BytesIO
 import sys
+import os
 import praw
 import markov
 import get_data
@@ -162,7 +163,10 @@ if len(args) == 4:
             ans = raw_input("Save this meme? [Y/N] ")
         if ans == 'y':
             filename = raw_input("Filename: ")
-            filename = 'out_pics/' + filename + '.png'
+            output_dir = "out_pics/"
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+            filename = output_dir + filename + '.png'
             out.save(filename, "PNG")
             print("Saved %s" % (filename))
     elif args[1] == "update":

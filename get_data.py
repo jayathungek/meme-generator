@@ -1,5 +1,6 @@
 from __future__ import print_function
 import praw
+import os
 import random
 
 secret = "5qtquiU4ac8S0EJ_9jYzh6x-YR8"
@@ -10,7 +11,11 @@ reddit = praw.Reddit(
 
 
 def get_titles(subreddit, number):
-    output_file = "text/%s_titles.txt" % (subreddit)
+    output_dir = "text/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    output_file = "%s%s_titles.txt" % (output_dir, subreddit)
     with open(output_file, 'a') as out:
         for submission in reddit.subreddit(subreddit).top(limit=number):
             print(submission.title.encode('utf-8'), file=out, end=' ')
@@ -18,7 +23,11 @@ def get_titles(subreddit, number):
 
 
 def get_images(subreddit, number):
-    output_file = "pics/%s_pics.txt" % (subreddit)
+    output_dir = "pics/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    output_file = "%s%s_pics.txt" % (output_dir, subreddit)
     with open(output_file, 'a') as out:
         for submission in reddit.subreddit(subreddit).top(limit=number):
             if '/i.imgur.com/' in submission.url and '.gifv' not in submission.url:
